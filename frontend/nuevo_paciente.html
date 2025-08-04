@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nuevo Paciente - SaludYA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=OpenDyslexic&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="PIeDePagina/footer.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f5f5f5;
+      color: #000;
+      min-height: 100vh;
+    }
+    .dark-mode, .dark-mode body {
+      background-color: #121212 !important;
+      color: #f3f4f6 !important;
+    }
+    .high-contrast, .high-contrast body {
+      background-color: #fffacc !important;
+      color: #000 !important;
+    }
+    .dyslexic-mode {
+      font-family: 'OpenDyslexic', sans-serif !important;
+    }
+    header {
+      background-color: #2563eb;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo { font-size: 1.6rem; font-weight: bold; }
+    .search-bar input {
+      padding: 6px 12px;
+      border-radius: 20px;
+      border: none;
+      outline: none;
+      width: 250px;
+    }
+    nav {
+      background-color: #1e40af;
+    }
+    ul.menu {
+      list-style: none;
+      display: flex;
+      padding: 0;
+      margin: 0;
+    }
+    ul.menu > li {
+      position: relative;
+    }
+    ul.menu > li > a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 20px;
+      color: white;
+      text-decoration: none;
+      transition: background 0.3s, text-decoration 0.3s;
+    }
+    ul.menu > li:hover > a {
+      background-color: #1e3a8a;
+      text-decoration: underline;
+    }
+    ul.submenu {
+      position: absolute;
+      background-color: #2563eb;
+      display: none;
+      list-style: none;
+      min-width: 180px;
+      z-index: 1000;
+    }
+    ul.menu > li:hover ul.submenu {
+      display: block;
+
+    }
+    ul.submenu li a {
+      display: block;
+      padding: 10px 15px;
+      color: white;
+      text-decoration: none;
+    }
+    ul.submenu li a:hover {
+      background-color: #1e40af;
+      text-decoration: underline;
+    }
+    .logout-btn {
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+    .accessibility-wrapper {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      z-index: 9999;
+    }
+    .accessibility-toggle {
+      background-color: #2563eb;
+      color: #fff;
+      padding: 12px;
+      font-size: 20px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    .accessibility-menu {
+      display: none;
+      flex-direction: column;
+      margin-top: 10px;
+      background: #fff;
+      padding: 12px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .accessibility-wrapper:hover .accessibility-menu {
+      display: flex;
+    }
+    .accessibility-menu button {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      margin-bottom: 8px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .subtitulos {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.85);
+      color: white;
+      padding: 12px 24px;
+      font-size: 17px;
+      border-radius: 10px;
+      max-width: 80%;
+      z-index: 9998;
+      display: none;
+      text-align: center;
+    }
+
+
+
+    form input, form select, form button {
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      font-size: 0.95rem;
+      background-color: #f9fafb;
+      width: 100%;
+      transition: border-color 0.3s;
+      max-width: 400px;
+      margin: 0 auto; 
+    }
+
+    form input:focus, form select:focus {
+      border-color: #2563eb;
+      background-color: white;
+    }
+
+    form button {
+      background-color: #2563eb;
+      color: white;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+
+    form button:hover {
+      background-color: #1e40af;
+    }
+
+    form select, form textarea {
+      resize: vertical;
+    }
+
+    form input::placeholder,
+    form textarea::placeholder {
+      color: #6b7280;
+    }
+
+    .form-footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.9rem;
+    }
+
+    .form-footer a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    .form-footer a:hover {
+      text-decoration: underline;
+    }
+
+    form {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); /* tarjetas flexibles */
+  gap: 20px;
+  max-width: 1000px;
+  margin: 20px auto;
+  align-items: flex-start;
+}
+
+.form-section {
+  border: 2px solid #2563eb;
+  border-radius: 10px;
+  padding: 15px;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+legend {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #2563eb;
+  margin-bottom: 10px;
+}
+
+.form-section input,
+.form-section select {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #cbd5e1;
+  font-size: 1rem;
+}
+
+form button {
+  grid-column: 1 / -1;   /* el botón ocupa todo el ancho */
+  justify-self: center;
+  width: 200px;
+  padding: 12px;
+}
+
+fieldset {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+  label {
+    display: block;
+    margin-top: 10px;
+  }
+  input, select {
+    display: block;
+    width: 100%;
+    margin-bottom: 3px;
+    padding: 8px;
+  }
+  .msg-error {
+    font-size: 0.85rem;
+    color: #444;  /* Gris */
+    font-style: italic;
+    min-height: 18px;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  #nuevo-paciente-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* <-- Diseño flexible */
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+}
+
+.toast {
+  visibility: hidden;
+  min-width: 250px;
+  background-color: #2563eb;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 12px 20px;
+  position: fixed;
+  z-index: 9999;
+  left: 50%;
+  bottom: 30px;
+  transform: translateX(-50%);
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.5s, bottom 0.5s;
+}
+
+/* Cuando se muestra */
+.toast.show {
+  visibility: visible;
+  opacity: 1;
+  bottom: 50px;
+}
+
+
+  </style>
+</head>
+<body>
+<header>
+  <div class="logo">SaludYA!</div>
+  <div style="display: flex; align-items: center; gap: 20px;">
+    <div class="search-bar">
+      <input type="text" placeholder="Buscar..." aria-label="Buscar en el sistema">
+    </div>
+    <button onclick="cerrarSesion()" class="logout-btn">Cerrar sesión</button>
+  </div>
+</header>
+
+<nav>
+  <ul class="menu">
+    <li><a href="home.html"><i class="fas fa-home"></i>Inicio</a></li>
+    <li><a href="#"><i class="fas fa-user-injured"></i>Pacientes ▾</a>
+      <ul class="submenu">
+        <li><a href="nuevo_paciente.html"><i class="fas fa-user-plus"></i> Nuevo Paciente</a></li>
+        <li><a href="listado_pacientes.html"><i class="fas fa-list"></i> Listado</a></li>
+        <li><a href="historial_pacientes.html"><i class="fas fa-history"></i> Historial</a></li>
+      </ul>
+    </li>
+    <li><a href="#"><i class="fas fa-calendar-check"></i>Citas ▾</a>
+      <ul class="submenu">
+        <li><a href="#"><i class="fas fa-calendar-plus"></i> Agendar</a></li>
+        <li><a href="#"><i class="fas fa-edit"></i> Reprogramar</a></li>
+      </ul>
+    </li>
+    <li><a href="#"><i class="fas fa-video"></i>Videollama</a></li>
+    <li><a href="#"><i class="fas fa-stethoscope"></i>Consultas</a></li>
+    <li><a href="#"><i class="fas fa-headset"></i>Soporte</a></li>
+  </ul>
+</nav>
+
+<main style="padding: 20px;">
+  <h2 tabindex="0" onclick="leerTexto(this)">Registrar Nuevo Paciente</h2>
+  <p tabindex="0" onclick="leerTexto(this)">Llena los campos correspondientes para registrar a un nuevo paciente en el sistema.</p>
+</main>
+
+<div class="accessibility-wrapper">
+  <div class="accessibility-toggle" tabindex="0" aria-label="Menú de accesibilidad">♿</div>
+  <div class="accessibility-menu" role="menu">
+    <button onclick="toggleDarkMode()">🌙 Modo oscuro</button>
+    <button onclick="toggleContrast()">🟡 Contraste suave</button>
+    <button onclick="toggleDyslexic()">🔤 Modo disléxico</button>
+    <button onclick="adjustFont(2)">🔼 Aumentar letra</button>
+    <button onclick="adjustFont(-2)">🔽 Disminuir letra</button>
+    <button onclick="leerTextoSeleccionado()">🔊 Leer selección</button>
+    <button onclick="leerTodo()">📖 Leer todo</button>
+  </div>
+</div>
+
+<div class="subtitulos" id="subtitulos" aria-live="polite" aria-atomic="true"></div>
+
+<form id="nuevo-paciente-form">
+  <!-- Información Personal -->
+  <fieldset class="form-section">
+    <legend>🧍 Información Personal</legend>
+
+    <label for="nombres">Nombres <span class="required">*</span>:</label>
+    <input type="text" id="nombres" placeholder="Ej. Juan Jose" required>
+    <small class="msg-error"></small>
+
+    <label for="apellidos">Apellidos <span class="required">*</span>:</label>
+    <input type="text" id="apellidos" placeholder="Ej. Lopez Lopez" required>
+    <small class="msg-error"></small>
+
+    <label for="cedula">Cédula de Identidad <span class="required">*</span>:</label>
+    <input type="number" id="cedula" placeholder="Ej. 1315595218" required>
+    <small class="msg-error"></small>
+
+    <label for="sexo">Sexo <span class="required">*</span>:</label>
+    <select id="sexo" required>
+      <option value="" disabled selected>Seleccione el sexo</option>
+      <option value="Masculino">Masculino</option>
+      <option value="Femenino">Femenino</option>
+    </select>
+    <small class="msg-error"></small>
+
+    <label for="edad">Edad <span class="required">*</span>:</label>
+    <input type="number" id="edad" placeholder="Ej. 30" required>
+    <small class="msg-error"></small>
+  </fieldset>
+
+  <!-- Datos Médicos -->
+  <fieldset class="form-section">
+    <legend>⚕️ Datos Médicos</legend>
+
+    <label for="peso">Peso <span class="required">*</span>:</label>
+    <input type="number" id="peso" placeholder="Ingrese peso en kg" required>
+    <small class="msg-error"></small>
+  </fieldset>
+
+  <!-- Datos de Contacto -->
+  <fieldset class="form-section">
+    <legend>📞 Datos de Contacto</legend>
+
+    <label for="celular">Número de Celular <span class="required">*</span>:</label>
+    <input type="number" id="celular" placeholder="Ej. 0922571525" required>
+    <small class="msg-error"></small>
+
+    <label for="correo">Correo Electrónico <span class="required">*</span>:</label>
+    <input type="email" id="correo" placeholder="Ej. juan@ejemplo.com" required>
+    <small class="msg-error"></small>
+  </fieldset>
+
+  <button type="submit">Registrar Paciente</button>
+</form>
+
+<div id="toast" class="toast">✅ Formulario completado correctamente</div>
+
+<div id="loading" style="display: none;">Cargando...</div>
+
+<div id="footer"></div>
+
+<script>
+
+  // ✅ Funciones de accesibilidad existentes
+  function cerrarSesion() {
+    window.location.href = "login.html";
+  }
+
+  function toggleDarkMode() {
+    document.body.classList.remove("high-contrast");
+    document.body.classList.toggle("dark-mode");
+  }
+
+  function toggleContrast() {
+    document.body.classList.remove("dark-mode");
+    document.body.classList.toggle("high-contrast");
+  }
+
+  function toggleDyslexic() {
+    document.body.classList.toggle("dyslexic-mode");
+  }
+
+  function adjustFont(change) {
+    const html = document.documentElement;
+    let size = parseFloat(getComputedStyle(html).fontSize);
+    size = Math.max(12, Math.min(24, size + change));
+    html.style.fontSize = size + "px";
+  }
+
+  function leerTextoSeleccionado() {
+    const seleccion = window.getSelection().toString().trim();
+    if (seleccion) leerTextoDesdeCadena(seleccion);
+    else showToast("⚠️ Selecciona un texto para leer", "#dc3545");
+  }
+
+  function leerTodo() {
+    leerTextoDesdeCadena(document.body.innerText);
+  }
+
+  function leerTexto(elemento) {
+    leerTextoDesdeCadena(elemento.innerText || elemento.textContent);
+  }
+
+  function leerTextoDesdeCadena(texto) {
+    if (!texto) return;
+    const subtitulo = document.getElementById("subtitulos");
+    subtitulo.innerText = texto;
+    subtitulo.style.display = "block";
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(texto);
+    utterance.lang = "es-ES";
+    speechSynthesis.speak(utterance);
+    utterance.onend = () => subtitulo.style.display = "none";
+  }
+
+  // ✅ Toast personalizado
+  function showToast(message, color = "#2563eb") {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.style.background = color;
+    toast.className = "toast show";
+    setTimeout(() => {
+      toast.className = toast.className.replace("show", "");
+    }, 3000);
+  }
+
+  // ✅ Validación de campos
+  const form = document.getElementById("nuevo-paciente-form");
+
+  function validarCampo(field) {
+    const msg = field.nextElementSibling;
+    if (msg && msg.classList.contains("msg-error")) {
+      msg.textContent = field.value.trim() ? "" : "⚠️ Este campo es obligatorio";
+    }
+  }
+
+  form.querySelectorAll("input[required], select[required]").forEach(field => {
+    field.addEventListener("blur", () => validarCampo(field));
+    field.addEventListener("input", () => validarCampo(field));
+  });
+
+  // ✅ Envío del formulario con fetch y toast
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    let valid = true;
+    form.querySelectorAll("input[required], select[required]").forEach(field => {
+      validarCampo(field);
+      if (!field.value.trim()) valid = false;
+    });
+
+    if (!valid) {
+      showToast("⚠️ Por favor completa todos los campos", "#dc3545");
+      return;
+    }
+
+    // Mostrar mensaje de carga
+    showToast("⏳ Enviando datos...", "#f59e0b");
+
+    // Obtener datos del formulario
+    const payload = {
+      nombres: document.getElementById('nombres').value,
+      apellidos: document.getElementById('apellidos').value,
+      cedula: document.getElementById('cedula').value,
+      sexo: document.getElementById('sexo').value,
+      edad: document.getElementById('edad').value,
+      peso: document.getElementById('peso').value,
+      celular: document.getElementById('celular').value,
+      correo: document.getElementById('correo').value
+    };
+
+    try {
+      const response = await fetch('/api/pacientes/nuevo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        showToast("✅ " + data.mensaje, "#16a34a");
+        setTimeout(() => window.location.href = 'listado_pacientes.html', 2000);
+      } else {
+        showToast("❌ " + (data.mensaje || "Error al registrar el paciente"), "#dc3545");
+      }
+    } catch (err) {
+      showToast("⚠️ Error de conexión con el servidor", "#dc3545");
+    }
+  });
+
+  // ✅ Carga dinámica del footer
+  fetch("PieDePagina/footer.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("footer").innerHTML = data;
+    });
+
+</script>
+</body>
+</html>

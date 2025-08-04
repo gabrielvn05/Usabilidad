@@ -1,0 +1,60 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<footer class="footer" role="contentinfo" aria-label="Información de contacto y enlaces">
+  <div class="footer-container">
+    <!-- Contactos -->
+    <div class="footer-section" role="region" aria-labelledby="footer-contactos">
+      <h4 id="footer-contactos"><i class="fas fa-address-book"></i> Contactos:</h4>
+      <p tabindex="0"><i class="fas fa-phone-alt"></i> <strong>Teléfono:</strong> (05) 256-7890</p>
+      <p tabindex="0"><i class="fas fa-map-marker-alt"></i> <strong>Dirección:</strong> Av. Simón Bolívar, esquina</p>
+      <p tabindex="0"><i class="fas fa-envelope"></i> <strong>Correo:</strong> 
+        <a href="mailto:SaludYAteleSoporte@outlook.com" aria-label="Enviar correo a soporte">SaludYAteleSoporte@outlook.com</a>
+      </p>
+    </div>
+
+    <!-- Idiomas -->
+    <div class="footer-section" role="region" aria-labelledby="footer-idiomas">
+      <h4 id="footer-idiomas"><i class="fas fa-language"></i> Idioma</h4>
+      <!-- Contenedor del traductor de Google -->
+      <div id="google_translate_element"></div>
+    </div>
+
+    <!-- Enlaces -->
+    <div class="footer-section" role="region" aria-labelledby="footer-enlaces">
+      <h4 id="footer-enlaces"><i class="fas fa-link"></i> Enlaces</h4>
+      <a href="#"><i class="fas fa-shield-alt"></i> Política de Privacidad</a><br>
+      <a href="#"><i class="fas fa-file-contract"></i> Términos y Condiciones</a><br>
+      <a href="#"><i class="fas fa-question-circle"></i> Preguntas Frecuentes</a><br>
+      <a href="#"><i class="fas fa-book"></i> Manual de Usuario</a>
+    </div>
+
+    <!-- Redes Sociales -->
+    <div class="footer-section" role="region" aria-labelledby="footer-redes">
+      <h4 id="footer-redes"><i class="fas fa-share-alt"></i> Síguenos en Redes:</h4>
+      <p>
+        <a href="#"><i class="fab fa-instagram" style="color:#E4405F;"></i> SaludYA!</a><br>
+        <a href="#"><i class="fab fa-facebook" style="color:#1877F2;"></i> SaludYA!</a><br>
+        <a href="#"><i class="fab fa-youtube" style="color:#FF0000;"></i> SaludYA!</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<!-- Google Translate Script -->
+<script type="text/javascript">
+  window.onload = function() {
+  googleTranslateElementInit();
+};
+
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'es',  // Idioma por defecto
+    includedLanguages: 'es,en,fr,de,it,pt',  // Idiomas disponibles
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+  }, 'google_translate_element');
+}
+
+</script>
+
+<!-- Cargar el script de Google Translate -->
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>

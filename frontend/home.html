@@ -1,0 +1,271 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SaludYA - Panel Principal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=OpenDyslexic&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="PIeDePagina/footer.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f5f5f5;
+      color: #000;
+      min-height: 100vh;
+    }
+    .dark-mode, .dark-mode body {
+      background-color: #121212 !important;
+      color: #f3f4f6 !important;
+    }
+    .high-contrast, .high-contrast body {
+      background-color: #fffacc !important;
+      color: #000 !important;
+    }
+    .dyslexic-mode {
+      font-family: 'OpenDyslexic', sans-serif !important;
+    }
+    header {
+      background-color: #2563eb;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo { font-size: 1.6rem; font-weight: bold; }
+    .search-bar input {
+      padding: 6px 12px;
+      border-radius: 20px;
+      border: none;
+      outline: none;
+      width: 250px;
+    }
+    nav {
+      background-color: #1e40af;
+    }
+    ul.menu {
+      list-style: none;
+      display: flex;
+      padding: 0;
+      margin: 0;
+    }
+    ul.menu > li {
+      position: relative;
+    }
+    ul.menu > li > a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 20px;
+      color: white;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    ul.menu > li:hover > a {
+      background-color: #1e3a8a;
+      text-decoration: underline;
+    }
+    ul.submenu {
+      position: absolute;
+      background-color: #2563eb;
+      display: none;
+      list-style: none;
+      min-width: 180px;
+      z-index: 1000;
+    }
+    ul.menu > li:hover ul.submenu {
+      display: block;
+    }
+    ul.submenu li a {
+      display: block;
+      padding: 10px 15px;
+      color: white;
+      text-decoration: none;
+    }
+    ul.submenu li a:hover {
+      background-color: #1e40af;
+      text-decoration: underline;
+    }
+    .logout-btn {
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+    .accessibility-wrapper {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      z-index: 9999;
+    }
+    .accessibility-toggle {
+      background-color: #2563eb;
+      color: #fff;
+      padding: 12px;
+      font-size: 20px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    .accessibility-menu {
+      display: none;
+      flex-direction: column;
+      margin-top: 10px;
+      background: #fff;
+      padding: 12px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .accessibility-wrapper:hover .accessibility-menu {
+      display: flex;
+    }
+    .accessibility-menu button {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      margin-bottom: 8px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .subtitulos {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.85);
+      color: white;
+      padding: 12px 24px;
+      font-size: 17px;
+      border-radius: 10px;
+      max-width: 80%;
+      z-index: 9998;
+      display: none;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="logo">SaludYA!</div>
+  <div style="display: flex; align-items: center; gap: 20px;">
+    <div class="search-bar">
+      <input type="text" placeholder="Buscar..." aria-label="Buscar en el sistema">
+    </div>
+    <button onclick="cerrarSesion()" class="logout-btn">Cerrar sesión</button>
+  </div>
+</header>
+
+<nav>
+  <ul class="menu">
+    <li><a href="#"><i class="fas fa-home"></i>Inicio</a></li>
+    <li><a href="#"><i class="fas fa-user-injured"></i>Pacientes ▾</a>
+      <ul class="submenu">
+        <li><a href="nuevo_paciente.html"><i class="fas fa-user-plus"></i> Nuevo Paciente</a></li>
+        <li><a href="listado_pacientes.html"><i class="fas fa-list"></i> Listado</a></li>
+        <li><a href="historial_pacientes.html"><i class="fas fa-history"></i> Historial</a></li>
+      </ul>
+    </li>
+    <li><a href="#"><i class="fas fa-calendar-check"></i>Citas ▾</a>
+      <ul class="submenu">
+        <li><a href="#"><i class="fas fa-calendar-plus"></i> Agendar</a></li>
+        <li><a href="#"><i class="fas fa-edit"></i> Reprogramar</a></li>
+      </ul>
+    </li>
+    <li><a href="#"><i class="fas fa-video"></i>Videollama</a></li>
+    <li><a href="#"><i class="fas fa-stethoscope"></i>Consultas</a></li>
+    <li><a href="#"><i class="fas fa-headset"></i>Soporte</a></li>
+  </ul>
+</nav>
+
+<main style="padding: 20px;">
+  <h2 tabindex="0" onclick="leerTexto(this)">Bienvenido a SaludYA!</h2>
+  <p tabindex="0" onclick="leerTexto(this)">Selecciona una opción del menú para comenzar.</p>
+</main>
+
+<!-- Botón accesibilidad -->
+<div class="accessibility-wrapper">
+  <div class="accessibility-toggle" tabindex="0" aria-label="Menú de accesibilidad">♿</div>
+  <div class="accessibility-menu" role="menu">
+    <button onclick="toggleDarkMode()">🌙 Modo oscuro</button>
+    <button onclick="toggleContrast()">🟡 Contraste suave</button>
+    <button onclick="toggleDyslexic()">🔤 Modo disléxico</button>
+    <button onclick="adjustFont(2)">🔼 Aumentar letra</button>
+    <button onclick="adjustFont(-2)">🔽 Disminuir letra</button>
+    <button onclick="leerTextoSeleccionado()">🔊 Leer selección</button>
+    <button onclick="leerTodo()">📖 Leer todo</button>
+  </div>
+</div>
+
+<div class="subtitulos" id="subtitulos" aria-live="polite" aria-atomic="true"></div>
+
+<div id="footer"></div>
+<script>
+  function cerrarSesion() {
+    window.location.href = "login.html";
+  }
+
+  function toggleDarkMode() {
+    document.body.classList.remove("high-contrast");
+    document.body.classList.toggle("dark-mode");
+  }
+
+  function toggleContrast() {
+    document.body.classList.remove("dark-mode");
+    document.body.classList.toggle("high-contrast");
+  }
+
+  function toggleDyslexic() {
+    document.body.classList.toggle("dyslexic-mode");
+  }
+
+  function adjustFont(change) {
+    const html = document.documentElement;
+    let size = parseFloat(getComputedStyle(html).fontSize);
+    size = Math.max(12, Math.min(24, size + change));
+    html.style.fontSize = size + "px";
+  }
+
+  function leerTextoSeleccionado() {
+    const seleccion = window.getSelection().toString().trim();
+    if (seleccion) leerTextoDesdeCadena(seleccion);
+    else alert("Selecciona un texto para leer.");
+  }
+
+  function leerTodo() {
+    leerTextoDesdeCadena(document.body.innerText);
+  }
+
+  function leerTexto(elemento) {
+    leerTextoDesdeCadena(elemento.innerText || elemento.textContent);
+  }
+
+  function leerTextoDesdeCadena(texto) {
+    if (!texto) return;
+    const subtitulo = document.getElementById("subtitulos");
+    subtitulo.innerText = texto;
+    subtitulo.style.display = "block";
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(texto);
+    utterance.lang = "es-ES";
+    speechSynthesis.speak(utterance);
+    utterance.onend = () => subtitulo.style.display = "none";
+  }
+
+fetch("PieDePagina/footer.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("footer").innerHTML = data;
+    });
+
+</script>
+</body>
+</html>

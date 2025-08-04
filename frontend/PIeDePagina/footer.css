@@ -1,0 +1,76 @@
+/* CSS del body para tener un layout de flexbox y mantener el footer al final */
+body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1; 
+}
+
+/* Estilos del footer */
+.footer {
+  background: #e5e5e5;
+  padding: 20px 40px;
+  color: #000;
+  font-size: 0.95rem;
+  border-top: 3px solid #2563eb;
+  margin-top: auto;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-section h4 {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.footer-section a {
+  color: #000;
+  text-decoration: none;
+  display: inline-block;
+  margin: 3px 0;
+}
+
+.footer-section a:hover, .footer-section a:focus {
+  text-decoration: underline;
+  color: #2563eb;
+}
+
+.footer i {
+  margin-right: 5px;
+}
+
+.footer-section p i {
+  color: #2563eb;
+}
+
+/* Mejorar la visibilidad del contenedor del traductor de Google */
+#google_translate_element {
+  display: block !important;
+  min-width: 150px;
+  padding: 10px;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+}
+
+/* Mejorar el estilo del botón del traductor */
+.goog-te-combo {
+    width: 100%;  /* Usar el 100% del contenedor para asegurar que sea responsivo */
+    height: 35px;  /* Mejor altura del selector */
+    padding: 5px 10px;  /* Espaciado interno */
+    font-size: 14px;  /* Tamaño de la fuente */
+    border: 1px solid #2563eb; /* Borde del selector */
+    border-radius: 5px;  /* Bordes redondeados */
+    background-color: white; /* Fondo blanco */
+}
+
+.goog-te-combo option {
+    background-color: white; /* Fondo blanco para las opciones */
+}
