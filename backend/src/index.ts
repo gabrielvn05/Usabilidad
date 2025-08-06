@@ -2,7 +2,7 @@ import path from 'path';
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import { AppDataSource } from '../ormconfig';
+import { AppDataSource } from './ormconfig';
 import authRoutes from './routes/auth';
 import pacienteRoutes from './routes/Paciente'
 

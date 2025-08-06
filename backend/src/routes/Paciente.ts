@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { AppDataSource } from '../../ormconfig';
+import { AppDataSource } from '../ormconfig';
 import { Paciente } from '../entities/Paciente';
 
 const router = Router();
